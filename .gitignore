@@ -1,0 +1,11 @@
+.hypothesis
+
+# Pytest
+.pytest_cache
+__pycache__/
+
+# IDE
+.idea
+
+# Virtual environment
+venv/
