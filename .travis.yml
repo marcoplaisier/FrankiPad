@@ -4,6 +4,7 @@
     - "3.7"
   install:
     - pip install -r requirements/test.txt
+    - pip install -e .
   script:
-    - behave -v tests/features
+    - behave tests/features
     - pytest
