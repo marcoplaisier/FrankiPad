@@ -3,3 +3,5 @@ pytest
 behave
 bump
 twine
+setuptools
+wheel

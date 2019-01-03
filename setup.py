@@ -19,7 +19,7 @@ REQUIRED = [
     'flask'
 ]
 
-EXTRAS = []
+EXTRAS = {}
 
 here = os.path.abspath(os.path.dirname(__file__))
 
