@@ -12,7 +12,7 @@ URL = 'https://github.com/marcoplaisier/QuotePad'
 EMAIL = 'm.plaisier@gmail.com'
 AUTHOR = 'Marco Plaisier'
 REQUIRES_PYTHON = '>=3.6.0'
-version = '0.1.0-dev'
+version = '0.1.1'
 VERSION = version  # to make bump happy
 
 REQUIRED = [
