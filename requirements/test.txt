@@ -1,6 +1,5 @@
 -r common.txt
 pytest
-behave
 bump
 twine
 setuptools
