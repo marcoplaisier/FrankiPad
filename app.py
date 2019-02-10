@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+import random
 
 from flask import Flask, render_template, flash
 from flask_migrate import Migrate
@@ -7,7 +7,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.getcwd()}/quotepad.db"
-app.config['SECRET_KEY'] = "Ng6R83e9JvOV35Bc"
+app.config['SECRET_KEY'] = str(random.getrandbits(60))
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
