@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>All texts placeholder</p>
+    <ul>{% for text in texts %}
+        <li>{{ text.active }} - <a href="text/{{ text.id }}">{{ text.text }}</a> - {{ text.created }}</li>
+    {% endfor %}</ul>
 {% endblock %}
