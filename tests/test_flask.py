@@ -10,4 +10,4 @@ def client():
 
 def test_simple(client):
     t = client.get('/')
-    assert b'Hello' in t.data
+    assert b'Setting your texts alight - Quotepad' in t.data
