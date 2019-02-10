@@ -9,5 +9,4 @@ install:
 - pip install -r requirements/test.txt
 - pip install -e .
 script:
-- behave tests/features
 - pytest
