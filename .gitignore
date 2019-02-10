@@ -103,4 +103,4 @@ ENV/
 *.pkl
 
 # Database with testdata
-quotepad.db
+*.db
