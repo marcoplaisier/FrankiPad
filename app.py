@@ -21,8 +21,8 @@ def homepage():
     return render_template("homepage.html")
 
 
-def store(object):
-    db.session.add(object)
+def store(o):
+    db.session.add(o)
     db.session.commit()
 
 
@@ -38,6 +38,15 @@ def text():
             for _field, error_messages in form.errors.items():
                 for error_message in error_messages:
                     flash(error_message)
+    return render_template("text.html", form=form)
+
+
+@app.route('/text/<int:text_id>')
+def update(text_id):
+    text_data = Text.query.get_or_404(text_id)
+    form = TextForm()
+    form.active.data = text_data.active
+    form.ticker_text.data = text_data.text
     return render_template("text.html", form=form)
 
 

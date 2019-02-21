@@ -1,7 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <ul>{% for text in texts %}
-        <li>{{ text.active }} - <a href="text/{{ text.id }}">{{ text.text }}</a> - {{ text.created }}</li>
-    {% endfor %}</ul>
+    <table>
+        <thead>
+        <tr>
+            <th>Active?</th>
+            <th>Text</th>
+            <th>Created?</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for text in texts %}
+            <tr>
+                <td>{{ text.active }}</td>
+                <td><a href="text/{{ text.id }}">{{ text.text }}</a></td>
+                <td>{{ text.created.strftime('%Y-%m-%d') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
