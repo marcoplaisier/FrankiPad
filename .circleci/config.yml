@@ -30,7 +30,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            PYTHONPATH=. pytest tests/
+            PYTHONPATH=. pytest
 
       - store_artifacts:
           path: test-reports
