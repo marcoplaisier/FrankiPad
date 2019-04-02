@@ -1,5 +1,5 @@
 from datetime import datetime
-from app import db
+from main import db
 from forms import MAX_TEXT_LENGTH
 
 

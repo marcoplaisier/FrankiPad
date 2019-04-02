@@ -2,10 +2,9 @@
 
 {% block content %}
     <a href="{{ url_for('homepage') }}">Back</a>
-    <form method="POST" action="text">
-        {% for field in form %}
-            {{ field.label }}
-            {{ field }}
+    <form method="POST">
+            {% for field in form %}
+            {{field}}
         {% endfor %}
     </form>
 {% endblock %}

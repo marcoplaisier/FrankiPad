@@ -1,19 +1,11 @@
-import os
-import random
-
-from flask import Flask, render_template, flash
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.getcwd()}/quotepad.db"
-app.config['SECRET_KEY'] = str(random.getrandbits(60))
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+from flask import render_template, flash, redirect, url_for
 
 from forms import TextForm
 from models import Text
+
+from main import create_app, db
+
+app = create_app()
 
 
 @app.route('/')
@@ -41,13 +33,24 @@ def text():
     return render_template("text.html", form=form)
 
 
-@app.route('/text/<int:text_id>')
-def update(text_id):
+@app.route('/text/<int:text_id>', methods=['GET', 'POST'])
+def edit(text_id):
     text_data = Text.query.get_or_404(text_id)
     form = TextForm()
-    form.active.data = text_data.active
-    form.ticker_text.data = text_data.text
-    return render_template("text.html", form=form)
+    print("retrieving text")
+    if form.validate_on_submit():
+            text_data.text = form.ticker_text.data
+            store(text_data)
+            flash("Saved")
+            print("redirecting to homepage")
+            return redirect(url_for('homepage'))
+    else:
+        form = TextForm()
+        form.id = text_data.id
+        form.active.data = text_data.active
+        form.ticker_text.data = text_data.text
+    return render_template("edit_text.html", form=form)
+
 
 
 @app.route('/index')
