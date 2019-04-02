@@ -17,7 +17,6 @@ jobs:
 
     steps:
       - checkout
-
       - run:
           name: install dependencies
           command: |
@@ -31,7 +30,6 @@ jobs:
           command: |
             . venv/bin/activate
             PYTHONPATH=. pytest
-
       - store_artifacts:
           path: test-reports
           destination: test-reports
