@@ -1,5 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>All texts placeholder</p>
+    <a href="{{ url_for('homepage') }}">Back</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Active?</th>
+            <th>Text</th>
+            <th>Created?</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for text in texts %}
+            <tr>
+                <td>{{ text.active }}</td>
+                <td><a href="text/{{ text.id }}">{{ text.text }}</a></td>
+                <td>{{ text.created.strftime('%Y-%m-%d') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
