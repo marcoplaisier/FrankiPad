@@ -1,10 +1,11 @@
-import itertools
 import os
 import sqlite3
 import time
 from multiprocessing import Process
 
 import wiringpi
+
+from quotepad.serializers import BinaryTextEncoder
 
 DATA_REQUEST_PIN = 4
 CHANNEL = 0
@@ -16,7 +17,7 @@ connection_string = f"sqlite:///{os.getcwd()}/quotepad.db"
 conn = sqlite3.connect(connection_string)
 query = """select *
            from text
-           where active = TRUE
+           where active = 1
            order by id asc"""
 cursor = conn.cursor()
 query_result = cursor.execute(query)
@@ -31,15 +32,13 @@ def send_data():
         query_result = cursor.execute(query)
         data = next(query_result)
 
-    text = data.text
-    text = itertools.zip_longest(text, [], fillvalue=0x07)
-    text = list(itertools.chain.from_iterable(text))
-    buffer = bytes(text, 'ascii')
+    bytes_to_send = BinaryTextEncoder.serialize(data[1])
+    wiringpi.wiringPiSPIDataRW(0, bytes_to_send)
 
-    header = bytes([0xFE, 0x01, 0x00, 0x01, 0x00, 0x00])
-    footer = bytes([0xFF])
 
-    wiringpi.wiringPiSPIDataRW(0, header + buffer + footer)
+def reset():
+    global query_result
+    query_result = cursor.execute(query)
 
 
 def _run_process():

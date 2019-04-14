@@ -1,6 +1,7 @@
 from datetime import datetime
+
 from main import db
-from forms import MAX_TEXT_LENGTH
+from quotepad.forms import MAX_TEXT_LENGTH
 
 
 class Text(db.Model):
