@@ -13,7 +13,7 @@ SPEED = 250000
 
 wiringpi.wiringPiSetupGpio()
 wiringpi.pinMode(DATA_REQUEST_PIN, wiringpi.GPIO.INPUT)
-connection_string = f"sqlite:///{os.getcwd()}/quotepad.db"
+connection_string = "sqlite:///{}/quotepad.db".format(os.getcwd())
 conn = sqlite3.connect(connection_string)
 query = """select *
            from text

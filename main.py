@@ -11,7 +11,7 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.getcwd()}/quotepad.db"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///{}/quotepad.db".format(os.getcwd())
     app.config['SECRET_KEY'] = str(random.getrandbits(60))
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app=app)
