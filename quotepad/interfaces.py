@@ -9,10 +9,9 @@ from quotepad.serializers import BinaryTextEncoder
 
 DATA_REQUEST_PIN = 4
 CHANNEL = 0
-SPEED = 250000
+SPEED = 25000
 
-wiringpi.wiringPiSetupGpio()
-wiringpi.pinMode(DATA_REQUEST_PIN, wiringpi.GPIO.INPUT)
+wiringpi.wiringPiSPISetup(CHANNEL, SPEED)
 connection_string = "sqlite:///{}/quotepad.db".format(os.getcwd())
 conn = sqlite3.connect(connection_string)
 query = """select *
@@ -42,12 +41,9 @@ def reset():
 
 
 def _run_process():
-    wiringpi.wiringPiSPISetup(CHANNEL, SPEED)
-    wiringpi.pinMode(DATA_REQUEST_PIN, wiringpi.GPIO.INPUT)
-    wiringpi.wiringPiISR(DATA_REQUEST_PIN, wiringpi.GPIO.INT_EDGE_RISING, send_data)
-
     while True:
-        time.sleep(0.1)
+        send_data()
+        time.sleep(10)
 
 
 def run():
