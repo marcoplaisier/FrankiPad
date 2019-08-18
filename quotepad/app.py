@@ -1,8 +1,7 @@
 from flask import render_template, flash, redirect, url_for
 
-from forms import TextForm
-from models import Text
-
+from quotepad.forms import TextForm
+from quotepad.models import Text
 from main import create_app, db
 
 app = create_app()

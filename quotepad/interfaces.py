@@ -2,8 +2,16 @@ import os
 import sqlite3
 import time
 from multiprocessing import Process
+from unittest.mock import Mock
 
-import wiringpi
+from quotepad.models import Text
+
+
+try:
+    import wiringpi
+except ImportError:
+    print('Wiringpi is missing')
+    wiringpi = Mock()
 
 from quotepad.serializers import BinaryTextEncoder
 
@@ -20,6 +28,7 @@ query = """select *
            order by id asc"""
 cursor = conn.cursor()
 query_result = cursor.execute(query)
+query_result = Text.query.all()
 
 
 def send_data():
@@ -31,7 +40,7 @@ def send_data():
         query_result = cursor.execute(query)
         data = next(query_result)
 
-    bytes_to_send = BinaryTextEncoder.serialize(data[1])
+    bytes_to_send = BinaryTextEncoder.serialize(data)
     wiringpi.wiringPiSPIDataRW(0, bytes_to_send)
 
 

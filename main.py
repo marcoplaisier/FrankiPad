@@ -5,7 +5,6 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from quotepad.interfaces import run
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -23,5 +22,7 @@ def create_app():
 
 
 if __name__ == '__main__':
+    from quotepad import interfaces
+
     app = create_app()
-    run()
+    interfaces.run()
