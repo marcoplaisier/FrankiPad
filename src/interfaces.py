@@ -4,8 +4,8 @@ import time
 from multiprocessing import Process
 from unittest.mock import Mock
 
-from quotepad.models import Text
 
+from serializers import BinaryTextEncoder
 
 try:
     import wiringpi
@@ -13,29 +13,18 @@ except ImportError:
     print('Wiringpi is missing')
     wiringpi = Mock()
 
-from quotepad.serializers import BinaryTextEncoder
 
 DATA_REQUEST_PIN = 4
 CHANNEL = 0
 SPEED = 25000
 
 wiringpi.wiringPiSPISetup(CHANNEL, SPEED)
-connection_string = "sqlite:///{}/quotepad.db".format(os.getcwd())
-conn = sqlite3.connect(connection_string)
-query = """select *
-           from text
-           where active = 1
-           order by id asc"""
-cursor = conn.cursor()
-query_result = cursor.execute(query)
-query_result = Text.query.all()
+connection_string = f"sqlite:///{os.getcwd()}/quotepad.db"
 
 
 def send_data():
-    global query_result
-
     try:
-        data = next(query_result)
+        pass
     except StopIteration:
         query_result = cursor.execute(query)
         data = next(query_result)

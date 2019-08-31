@@ -10,7 +10,7 @@ class TextForm(FlaskForm):
     ticker_text = TextAreaField("Text",
                                 validators=[DataRequired(),
                                             Length(max=MAX_TEXT_LENGTH,
-                                                   message="Text must be shorter than {} characters".format(MAX_TEXT_LENGTH))
+                                                   message=f"Text must be shorter than {MAX_TEXT_LENGTH} characters")
                                             ],
                                 default="Type some text here")
     active = BooleanField("Active", default=True)

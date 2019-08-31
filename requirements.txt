@@ -1,1 +1,1 @@
--r requirements/pro.txt
+-r requirements/test.txt

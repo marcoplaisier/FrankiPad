@@ -2,8 +2,8 @@ from datetime import datetime
 
 import pytest
 
-from quotepad.models import Text
-from quotepad.serializers import BinaryTextEncoder, FOOTER, HEADER
+from models import Text
+from serializers import HEADER, FOOTER, BinaryTextEncoder
 
 
 def test_no_text():

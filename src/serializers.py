@@ -1,6 +1,6 @@
 import itertools
 
-from quotepad import models
+import models
 
 HEADER = bytes([0xFE, 0x01, 0x00, 0x01, 0x00, 0x00])
 FOOTER = bytes([0xFF])
