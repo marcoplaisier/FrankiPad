@@ -1,12 +1,12 @@
-from flask import render_template, flash, redirect, url_for, Blueprint
+from flask import render_template, request, redirect, url_for, Blueprint, flash
 
 from forms import TextForm
 from models import Text
 
-bp = Blueprint("texts", __name__)
+texts = Blueprint("texts", __name__, template_folder="templates")
 
 
-@bp.route('/')
+@texts.route('/')
 def homepage():
     return render_template("homepage.html")
 
@@ -17,7 +17,7 @@ def store(o):
     db.session.commit()
 
 
-@bp.route('/text', methods=['GET', 'POST'])
+@texts.route('/text', methods=['GET', 'POST'])
 def text():
     form = TextForm()
     if form.is_submitted():
@@ -32,16 +32,16 @@ def text():
     return render_template("text.html", form=form)
 
 
-@bp.route('/text/<int:text_id>', methods=['GET', 'POST'])
+@texts.route('/text/<int:text_id>', methods=['GET', 'POST'])
 def edit(text_id):
     text_data = Text.query.get_or_404(text_id)
     form = TextForm()
     print("retrieving text")
-    if form.validate_on_submit():
+    if request.method == 'POST' and form.validate_on_submit():
         text_data.text = form.ticker_text.data
         store(text_data)
         flash("Saved")
-        return redirect(url_for('homepage'))
+        return redirect(url_for('texts.homepage'))
     else:
         form = TextForm()
         form.id = text_data.id
@@ -50,7 +50,8 @@ def edit(text_id):
     return render_template("edit_text.html", form=form)
 
 
-@bp.route('/index')
+@texts.route('/index')
 def index():
     all_texts = Text.query.filter_by(active=True).order_by(Text.created).all()
+
     return render_template("index.html", texts=all_texts)
