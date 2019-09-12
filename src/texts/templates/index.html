@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <a href="{{ url_for('homepage') }}">Back</a>
+    <a href="{{ url_for('texts.homepage') }}">Back</a>
+
+    {% if texts %}
 
     <table>
         <thead>
@@ -19,6 +21,10 @@
                 <td>{{ text.created.strftime('%Y-%m-%d') }}</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
+    {% else %}
+    <p>No texts available. <a href="{{ url_for("texts.text") }}">Create a new one</a></p>
+    {% endif %}
 {% endblock %}
