@@ -1,6 +1,6 @@
 import pytest
 
-from main import create_app
+from app import create_app
 from models import db as _db
 
 

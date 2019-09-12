@@ -1,5 +1,3 @@
-import os
-import sqlite3
 import time
 from multiprocessing import Process
 from unittest.mock import Mock

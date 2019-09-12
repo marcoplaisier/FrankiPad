@@ -2,7 +2,7 @@ from models import Text
 
 
 def test_simple_text(session):
-    t = Text(text='test text', next_text_id=None, active=True)
+    t = Text(text='test text', active=True)
     session.add(t)
     session.commit()
 
@@ -10,8 +10,9 @@ def test_simple_text(session):
 
 
 def test_two_texts(session):
-    t1 = Text(text='text1', next_text_id=None, active=True)
-    t2 = Text(text='text2', next_text_id=t1, active=True)
+    t1 = Text(text='text1', active=True)
+    t2 = Text(text='text2', active=True)
+    session.add(t1)
     session.add(t2)
     session.commit()
 
